@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cosmo & Wanda | Peluquería Canina</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ===== HEADER / NAV ===== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#inicio" class="brand">
+        <span class="brand-mark">🐾</span>
+        <span class="brand-name">Cosmo <span class="amp">&amp;</span> Wanda</span>
+      </a>
+      <nav class="main-nav" id="mainNav">
+        <a href="#inicio">Inicio</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#galeria">Galería</a>
+        <a href="#contacto" class="nav-cta">Agendar cita</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section id="inicio" class="hero">
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <p class="eyebrow">Peluquería canina de barrio</p>
+        <h1>Cortes felices <br> para colas felices.</h1>
+        <p class="hero-sub">
+          En Cosmo &amp; Wanda tratamos a cada perrito como si fuera nuestro.
+          Baño, corte y mimos garantizados — sin estrés, con premios y muchas fotos.
+        </p>
+        <div class="hero-actions">
+          <a href="#contacto" class="btn btn-primary">Reservar hora</a>
+          <a href="#galeria" class="btn btn-ghost">Ver antes / después</a>
+        </div>
+      </div>
+
+      <div class="hero-ticket" aria-hidden="true">
+        <div class="ticket">
+          <div class="ticket-tape"></div>
+          <p class="ticket-label">Ficha de cita</p>
+          <p class="ticket-line">Paciente: <strong>___________</strong></p>
+          <p class="ticket-line">Servicio: <strong>Corte + Baño</strong></p>
+          <p class="ticket-line">Estado: <strong>¡Feliz! 🐶</strong></p>
+          <div class="ticket-perf"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SERVICIOS ===== -->
+  <section id="servicios" class="services">
+    <div class="container">
+      <p class="eyebrow center">Nuestros servicios</p>
+      <h2 class="section-title center">Todo lo que tu perrito necesita</h2>
+
+      <div class="services-grid">
+        <article class="service-card">
+          <span class="service-icon">🛁</span>
+          <h3>Baño relajante</h3>
+          <p>Shampoo hipoalergénico según tipo de pelaje, secado con calma y cepillado.</p>
+        </article>
+        <article class="service-card">
+          <span class="service-icon">✂️</span>
+          <h3>Corte de pelo</h3>
+          <p>Estilo de raza o corte personalizado, siempre a paso lento y sin ruidos fuertes.</p>
+        </article>
+        <article class="service-card">
+          <span class="service-icon">🐾</span>
+          <h3>Corte de uñas</h3>
+          <p>Limado y corte preciso para que caminen cómodos, sin miedo ni sustos.</p>
+        </article>
+        <article class="service-card">
+          <span class="service-icon">👂</span>
+          <h3>Limpieza de oídos</h3>
+          <p>Higiene suave de oídos y ojos como parte de todo paquete de aseo.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== GALERÍA / CARRUSEL ===== -->
+  <section id="galeria" class="gallery">
+    <div class="container">
+      <p class="eyebrow center">Galería</p>
+      <h2 class="section-title center">Antes &amp; después reales</h2>
+      <p class="section-sub center">Reemplaza cada imagen del carrusel por las fotos de tus propios clientes peludos.</p>
+
+      <div class="carousel" id="carousel">
+        <div class="carousel-track" id="carouselTrack">
+
+          <!-- ===== SLIDE 1 — reemplazar src por foto real ===== -->
+          <figure class="carousel-slide">
+            <img src="https://placehold.co/900x600/FBEFE2/2E2A26?text=Foto+de+Cosmo" alt="Perrito antes y después del corte 1">
+            <figcaption>Cosmo — Corte estilo Schnauzer</figcaption>
+          </figure>
+
+          <!-- ===== SLIDE 2 — reemplazar src por foto real ===== -->
+          <figure class="carousel-slide">
+            <img src="https://placehold.co/900x600/E8F3F1/2E2A26?text=Foto+de+Wanda" alt="Perrito antes y después del corte 2">
+            <figcaption>Wanda — Baño + retoque de cara</figcaption>
+          </figure>
+
+          <!-- ===== SLIDE 3 — reemplazar src por foto real ===== -->
+          <figure class="carousel-slide">
+            <img src="https://placehold.co/900x600/FDEBF0/2E2A26?text=Foto+de+Mate" alt="Perrito antes y después del corte 3">
+            <figcaption>Mate — Corte de verano</figcaption>
+          </figure>
+
+          <!-- ===== SLIDE 4 — reemplazar src por foto real ===== -->
+          <figure class="carousel-slide">
+            <img src="https://placehold.co/900x600/FFF3D6/2E2A26?text=Foto+de+Luna" alt="Perrito antes y después del corte 4">
+            <figcaption>Luna — Corte estilo Teddy Bear</figcaption>
+          </figure>
+
+        </div>
+
+        <button class="carousel-arrow prev" id="prevBtn" aria-label="Foto anterior">&#10094;</button>
+        <button class="carousel-arrow next" id="nextBtn" aria-label="Foto siguiente">&#10095;</button>
+
+        <div class="carousel-dots" id="carouselDots"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACTO / FORMULARIO DE CITA ===== -->
+  <section id="contacto" class="contact">
+    <div class="container contact-inner">
+      <div class="contact-copy">
+        <p class="eyebrow">Agenda tu hora</p>
+        <h2 class="section-title">Cuéntanos de tu perrito</h2>
+        <p class="section-sub">
+          Completa la ficha y te confirmaremos la hora por teléfono o correo.
+          Atendemos de lunes a sábado, 10:00 a 17:00 hrs.
+        </p>
+        <ul class="contact-info">
+          <li>📍 Carlos Spano 2636, Conchali</li>
+          <li>📞 +56 9 8333 8402</li>
+          <li>✉️ perruqueriaC&W@cosmoywanda.cl</li>
+        </ul>
+      </div>
+
+      <form id="appointmentForm" class="appointment-form" novalidate>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="ownerName">Nombre del dueño/a *</label>
+            <input type="text" id="ownerName" name="ownerName" placeholder="Ej: María Pérez">
+            <span class="form-error" id="ownerNameError"></span>
+          </div>
+          <div class="form-field">
+            <label for="petName">Nombre de la mascota *</label>
+            <input type="text" id="petName" name="petName" placeholder="Ej: Cosmo">
+            <span class="form-error" id="petNameError"></span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="breed">Raza</label>
+            <input type="text" id="breed" name="breed" placeholder="Ej: Poodle, mestizo...">
+          </div>
+          <div class="form-field">
+            <label for="service">Servicio *</label>
+            <select id="service" name="service">
+              <option value="">Selecciona un servicio</option>
+              <option value="bano">Baño</option>
+              <option value="corte">Corte de pelo</option>
+              <option value="bano-corte">Baño + Corte</option>
+              <option value="unas">Corte de uñas</option>
+              <option value="completo">Paquete completo</option>
+            </select>
+            <span class="form-error" id="serviceError"></span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="phone">Teléfono *</label>
+            <input type="tel" id="phone" name="phone" placeholder="+56 9 1234 5678">
+            <span class="form-error" id="phoneError"></span>
+          </div>
+          <div class="form-field">
+            <label for="email">Correo *</label>
+            <input type="email" id="email" name="email" placeholder="tucorreo@ejemplo.com">
+            <span class="form-error" id="emailError"></span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="date">Fecha deseada *</label>
+            <input type="date" id="date" name="date">
+            <span class="form-error" id="dateError"></span>
+          </div>
+          <div class="form-field">
+            <label for="time">Hora deseada *</label>
+            <input type="time" id="time" name="time">
+            <span class="form-error" id="timeError"></span>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="comments">Comentarios</label>
+          <textarea id="comments" name="comments" rows="3" placeholder="¿Alguna alergia, miedo o preferencia de corte?"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full">Solicitar cita</button>
+
+        <p class="form-success" id="formSuccess" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; <span id="year"></span> Cosmo &amp; Wanda — Peluquería Canina.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram">Instagram</a>
+        <a href="#" aria-label="Facebook">Facebook</a>
+        <a href="#" aria-label="WhatsApp">WhatsApp</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
