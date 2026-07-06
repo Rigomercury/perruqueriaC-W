@@ -226,7 +226,7 @@ function initAppointmentForm() {
     successMsg.textContent = '';
 
     try {
-      const response = await fetch('/api/crear-cita', {
+      const response = await fetch('/.netlify/functions/crear-cita', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
