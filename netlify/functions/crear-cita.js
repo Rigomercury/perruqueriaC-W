@@ -40,6 +40,7 @@ exports.handler = async (event) => {
 
   const { ownerName, petName, breed, service, phone, email, date, time, comments } = data;
 
+  // Validación básica en el servidor (nunca confiar solo en el navegador)
   const required = { ownerName, petName, service, phone, email, date, time };
   for (const [key, value] of Object.entries(required)) {
     if (!value || !String(value).trim()) {
@@ -52,6 +53,12 @@ exports.handler = async (event) => {
     return { statusCode: 400, body: JSON.stringify({ error: 'Correo inválido' }) };
   }
 
+  const allowedTimes = ['10:00', '12:00', '14:00', '16:00'];
+  if (!allowedTimes.includes(time)) {
+    return { statusCode: 400, body: JSON.stringify({ error: 'Horario no disponible. Elige 10:00, 12:00, 14:00 o 16:00.' }) };
+  }
+
+  // 1. Intentar guardar la cita
   const { data: cita, error } = await supabase
     .from('citas')
     .insert([{
@@ -69,6 +76,7 @@ exports.handler = async (event) => {
     .single();
 
   if (error) {
+    // Código 23505 = violación de restricción UNIQUE (fecha+hora ocupada)
     if (error.code === '23505') {
       return {
         statusCode: 409,
@@ -79,7 +87,9 @@ exports.handler = async (event) => {
     return { statusCode: 500, body: JSON.stringify({ error: 'No se pudo guardar la cita. Intenta de nuevo.' }) };
   }
 
+  // 2. Enviar correos (si falla el correo, la cita ya quedó guardada igual)
   try {
+    // Correo al negocio
     if (process.env.NOTIFY_EMAIL) {
       await resend.emails.send({
         from: FROM_EMAIL,
@@ -98,6 +108,7 @@ exports.handler = async (event) => {
       });
     }
 
+    // Correo de confirmación al cliente
     await resend.emails.send({
       from: FROM_EMAIL,
       to: email,
@@ -113,6 +124,8 @@ exports.handler = async (event) => {
     });
   } catch (emailError) {
     console.error('Error enviando correo:', emailError);
+    // No devolvemos error al usuario: la cita ya está guardada,
+    // el correo es un plus. Solo lo dejamos registrado en los logs.
   }
 
   return {

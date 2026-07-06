@@ -285,7 +285,7 @@ h1, h2, h3 {
   background: var(--color-paper);
 }
 
-.carousel-slide img { width: 100%; height: 400px; object-fit: cover; display: block; }
+.carousel-slide img { width: 100%; height: 400px; object-fit: cover; object-position: center; display: block; }
 
 .carousel-slide figcaption {
   position: absolute;
@@ -455,4 +455,7 @@ h1, h2, h3 {
   .services-grid { grid-template-columns: 1fr; }
   .carousel-arrow.prev { left: 6px; }
   .carousel-arrow.next { right: 6px; }
+
+  .carousel-track { height: 260px; }
+  .carousel-slide img { height: 260px; }
 }
