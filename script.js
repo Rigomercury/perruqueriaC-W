@@ -57,8 +57,9 @@ function initCarousel() {
   });
   const dots = Array.from(dotsContainer.children);
 
-  function updateCarousel() {
-    track.style.transform = `translateX(-${currentIndex * 100}%)`;
+function updateCarousel() {
+    const slideWidth = track.clientWidth;
+    track.scrollTo({ left: currentIndex * slideWidth, behavior: 'smooth' });
     dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIndex));
   }
 
@@ -82,12 +83,10 @@ function initCarousel() {
   nextBtn.addEventListener('click', nextSlide);
   prevBtn.addEventListener('click', prevSlide);
 
-  // Pausa el autoplay cuando el usuario pasa el mouse por encima
   const carousel = document.getElementById('carousel');
   carousel.addEventListener('mouseenter', () => clearInterval(autoplayTimer));
   carousel.addEventListener('mouseleave', startAutoplay);
 
-  // Soporte básico de swipe en mobile
   let touchStartX = 0;
   track.addEventListener('touchstart', e => {
     touchStartX = e.touches[0].clientX;
@@ -97,6 +96,8 @@ function initCarousel() {
     const diff = touchStartX - touchEndX;
     if (Math.abs(diff) > 40) diff > 0 ? nextSlide() : prevSlide();
   });
+
+  window.addEventListener('resize', updateCarousel);
 
   updateCarousel();
   startAutoplay();
@@ -171,7 +172,9 @@ function initAppointmentForm() {
     fields[name].el.addEventListener('blur', () => validateField(name));
   });
 
-  form.addEventListener('submit', e => {
+  const submitBtn = form.querySelector('button[type="submit"]');
+
+  form.addEventListener('submit', async e => {
     e.preventDefault();
 
     let isFormValid = true;
@@ -184,10 +187,49 @@ function initAppointmentForm() {
       return;
     }
 
-    // Aquí no hay backend: solo mostramos confirmación visual.
-    // Para conectar a un servidor real, reemplaza este bloque
-    // por un fetch() a tu endpoint o servicio de citas.
-    successMsg.textContent = '¡Cita solicitada con éxito! Te contactaremos pronto 🐾';
-    form.reset();
+    const payload = {
+      ownerName: fields.ownerName.el.value.trim(),
+      petName: fields.petName.el.value.trim(),
+      breed: document.getElementById('breed').value.trim(),
+      service: fields.service.el.value,
+      phone: fields.phone.el.value.trim(),
+      email: fields.email.el.value.trim(),
+      date: fields.date.el.value,
+      time: fields.time.el.value,
+      comments: document.getElementById('comments').value.trim(),
+    };
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Enviando...';
+    successMsg.style.color = '';
+    successMsg.textContent = '';
+
+    try {
+      const response = await fetch('/api/crear-cita', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        // Ej: hora ya ocupada (409), o campos inválidos (400)
+        successMsg.style.color = '#F45B8D';
+        successMsg.textContent = result.error || 'No se pudo agendar la cita. Intenta de nuevo.';
+        return;
+      }
+
+      successMsg.style.color = '';
+      successMsg.textContent = '¡Cita solicitada con éxito! Revisa tu correo para la confirmación 🐾';
+      form.reset();
+    } catch (networkError) {
+      console.error('Error de red:', networkError);
+      successMsg.style.color = '#F45B8D';
+      successMsg.textContent = 'Hubo un problema de conexión. Intenta nuevamente.';
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Solicitar cita';
+    }
   });
 }

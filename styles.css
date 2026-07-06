@@ -266,20 +266,25 @@ h1, h2, h3 {
 }
 
 .carousel-track {
+  position: relative;
   display: flex;
-  transition: transform 0.5s ease;
+  width: 100%;
   border-radius: var(--radius-lg);
-  overflow: hidden;
+  overflow-x: hidden;
   box-shadow: var(--shadow-soft);
+  height: 400px;
+  scroll-behavior: smooth;
 }
 
 .carousel-slide {
-  min-width: 100%;
+  flex: 0 0 100%;
+  max-width: 100%;
   position: relative;
+  height: 100%;
   background: var(--color-paper);
 }
 
-.carousel-slide img { width: 100%; height: 400px; object-fit: cover; }
+.carousel-slide img { width: 100%; height: 400px; object-fit: cover; display: block; }
 
 .carousel-slide figcaption {
   position: absolute;

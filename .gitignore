@@ -1,0 +1,13 @@
+# Dependencias (se instalan con npm install, no deben subirse)
+node_modules/
+
+# Archivos de entorno local (si alguna vez creas un .env, nunca debe subirse)
+.env
+.env.local
+
+# Archivos de Netlify CLI
+.netlify/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
