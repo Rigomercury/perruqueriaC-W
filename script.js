@@ -88,16 +88,37 @@ function updateCarousel() {
   carousel.addEventListener('mouseleave', startAutoplay);
 
   let touchStartX = 0;
+  let touchStartY = 0;
+  let isHorizontalSwipe = false;
+
   track.addEventListener('touchstart', e => {
     touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    isHorizontalSwipe = false;
   });
+
+  track.addEventListener('touchmove', e => {
+    const deltaX = Math.abs(e.touches[0].clientX - touchStartX);
+    const deltaY = Math.abs(e.touches[0].clientY - touchStartY);
+    // Si el movimiento es más horizontal que vertical, es un swipe del carrusel:
+    // evitamos que el dedo arrastre el scroll nativo y choque con nuestro scrollTo.
+    if (deltaX > deltaY) {
+      isHorizontalSwipe = true;
+      e.preventDefault();
+    }
+  }, { passive: false });
+
   track.addEventListener('touchend', e => {
+    if (!isHorizontalSwipe) return;
     const touchEndX = e.changedTouches[0].clientX;
     const diff = touchStartX - touchEndX;
     if (Math.abs(diff) > 40) diff > 0 ? nextSlide() : prevSlide();
   });
 
+  // Al rotar el celular o cambiar el tamaño de la ventana, recalcula
+  // la posición para que quede exactamente alineada con el slide actual.
   window.addEventListener('resize', updateCarousel);
+  window.addEventListener('orientationchange', () => setTimeout(updateCarousel, 200));
 
   updateCarousel();
   startAutoplay();
