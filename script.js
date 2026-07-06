@@ -144,6 +144,46 @@ function initAppointmentForm() {
     time:      { el: document.getElementById('time'),      required: true },
   };
 
+  // Al elegir una fecha, consulta qué horas ya están ocupadas ese día
+  // y deshabilita esas opciones en el selector de hora.
+  const timeSelect = fields.time.el;
+  const allTimeOptions = Array.from(timeSelect.options);
+
+  fields.date.el.addEventListener('change', async () => {
+    const fecha = fields.date.el.value;
+
+    // Restablece todas las opciones antes de consultar de nuevo
+    allTimeOptions.forEach(opt => {
+      opt.disabled = false;
+      opt.textContent = opt.value || 'Selecciona un horario';
+    });
+    timeSelect.value = '';
+
+    if (!fecha) return;
+
+    timeSelect.disabled = true;
+    try {
+      const response = await fetch(`/.netlify/functions/disponibilidad?fecha=${fecha}`);
+      const result = await response.json();
+
+      if (response.ok && Array.isArray(result.ocupadas)) {
+        result.ocupadas.forEach(hora => {
+          const opt = allTimeOptions.find(o => o.value === hora);
+          if (opt) {
+            opt.disabled = true;
+            opt.textContent = `${hora} — Ocupado`;
+          }
+        });
+      }
+    } catch (err) {
+      console.error('No se pudo consultar disponibilidad:', err);
+      // Si falla la consulta, dejamos las 4 horas habilitadas
+      // (la validación final de todos modos ocurre en el servidor al agendar).
+    } finally {
+      timeSelect.disabled = false;
+    }
+  });
+
   function showError(name, message) {
     const field = fields[name].el;
     const errorEl = document.getElementById(name + 'Error');

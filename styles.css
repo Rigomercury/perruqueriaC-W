@@ -140,6 +140,13 @@ h1, h2, h3 {
   font-weight: 600;
 }
 .brand-mark { font-size: 1.4rem; }
+.brand-mark img {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
 .amp { color: var(--color-bubblegum); }
 
 .main-nav { display: flex; align-items: center; gap: 28px; }
